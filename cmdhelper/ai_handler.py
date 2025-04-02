@@ -68,3 +68,38 @@ class AIHandler:
         except requests.RequestException as e:
             console.print(f"[red]Error connecting to local LLM: {str(e)}[/red]")
             return None
+
+    def natural_to_command(self, request: str) -> str:
+        """Convert natural language request to command suggestion."""
+        try:
+            prompt = (
+                "Convert this natural language request to a Linux command:\n"
+                f"Request: {request}\n\n"
+                "Provide the command with a brief explanation."
+            )
+            
+            if self.llm_type == "openai" and self.openai_key:
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a Linux command expert."},
+                        {"role": "user", "content": prompt}
+                    ]
+                )
+                return response.choices[0].message.content
+            else:
+                response = requests.post(
+                    self.llm_url,
+                    json={
+                        "model": self.llm_model,
+                        "prompt": prompt,
+                        "stream": False
+                    }
+                )
+                
+                if response.status_code == 200:
+                    return response.json()["response"]
+                return "Failed to get command suggestion"
+                
+        except Exception as e:
+            return f"Error generating command: {str(e)}"

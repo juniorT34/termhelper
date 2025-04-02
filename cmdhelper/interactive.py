@@ -48,6 +48,8 @@ class InteractiveShell:
         """Handle different command inputs."""
         if cmd == "help":
             self.show_help()
+        elif cmd == "clean" or cmd == "cls":
+            os.system('cls' if os.name == 'nt' else 'clear')
         elif cmd.startswith("?"):
             # Natural language query
             request = cmd[1:].strip()
@@ -87,7 +89,8 @@ class InteractiveShell:
 
         help_table.add_row("? <request>", "Convert natural language to command")
         help_table.add_row("explain <command>", "Get AI explanation for command")
-        help_table.add_row("add <command>", "Add a custom command")  # New row
+        help_table.add_row("add <command>", "Add a custom command")
+        help_table.add_row("clean", "Clear the screen")  # New row
         help_table.add_row("help", "Show this help message")
         help_table.add_row("exit", "Exit interactive mode")
         help_table.add_row("<command>", "Search for a command")
