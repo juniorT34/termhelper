@@ -9,10 +9,10 @@ setup(
         "cmdhelper": ["data/*.yaml", "web/templates/*", "web/static/*"],
     },
     description="A command-line helper tool with AI-powered explanations",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="juniort34",
+    author_email="jj1982268@gmail.com",
     license="MIT",
-    url="https://github.com/yourusername/cmdhelper",
+    url="https://github.com/juniorT34/termhelper",
     install_requires=[
         "requests",
         "rich",

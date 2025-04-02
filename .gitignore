@@ -12,6 +12,8 @@ dist/
 # Virtual Environment
 venv/
 .env
+docs/
+docs/details.md
 
 # IDE
 .vscode/

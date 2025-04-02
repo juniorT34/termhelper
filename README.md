@@ -31,7 +31,7 @@ pip install cmdhelper
 
 ```bash
 # Pull from GitHub Container Registry
-docker pull ghcr.io/juniort34/cmdhelper:latest
+docker pull junior039/cmdhelper:latest
 
 # Run with Docker
 docker run -it cmdhelper --help
@@ -177,7 +177,7 @@ docker run -it -e OPENAI_API_KEY=your_key cmdhelper
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/juniort34/cmdhelper.git
+git clone https://github.com/juniort34/termhelper.git
 cd cmdhelper
 ```
 
@@ -216,6 +216,7 @@ python docker_build.py
 
 ## 📁 Project Structure
 ```
+root
 cmdhelper/
 ├── cmdhelper/          # Main package
 │   ├── __init__.py

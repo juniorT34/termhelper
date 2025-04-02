@@ -1,6 +1,6 @@
 FROM python:3.12-alpine3.19
 
-LABEL org.opencontainers.image.source="https://github.com/juniorT34/cmdhelper"
+LABEL org.opencontainers.image.source="docker.io/junior039/cmdhelper"
 LABEL org.opencontainers.image.description="Command Helper CLI Tool"
 LABEL org.opencontainers.image.licenses="MIT"
 
