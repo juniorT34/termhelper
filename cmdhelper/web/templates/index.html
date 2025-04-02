@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Helper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#76FF03',
+                        secondary: '#1E1E1E',
+                        dark: {
+                            900: '#121212',
+                            800: '#1E1E1E',
+                            700: '#2D2D2D'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .llm-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #2a2a2a;
+            color: #fff;
+        }
+
+        .error {
+            color: #ff4444;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .explanation {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+
+        #loading {
+            display: none;
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+    <div class="llm-indicator" id="llmStatus">
+        Loading LLM status...
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-primary">Linux Command Helper</h1>
+
+        <!-- Search Container -->
+        <div class="max-w-2xl mx-auto mb-8">
+            <div class="flex gap-2">
+                <input type="text"
+                       id="searchBox"
+                       class="flex-1 px-4 py-2 rounded-lg bg-dark-800 border border-dark-700 text-gray-100 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                       placeholder="Search for a command...">
+                <button id="explainBtn"
+                        class="px-6 py-2 bg-primary text-dark-900 rounded-lg hover:bg-primary/90 transition-colors font-semibold">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="hidden text-center text-primary italic my-4">
+            <span class="inline-block animate-pulse">Generating explanation...</span>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results" class="max-w-2xl mx-auto"></div>
+
+        <!-- Add explanation container -->
+        <div id="explanation" class="max-w-2xl mx-auto mt-4"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        async function performSearch() {
+            const query = document.getElementById('searchBox').value.trim();
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+
+            if (!query) return;
+
+            loading.classList.remove('hidden');
+            results.innerHTML = '';
+
+            try {
+                const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (data.command) {
+                    displayResults(data);
+                } else if (data.suggestions) {
+                    displaySuggestions(data.suggestions);
+                }
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+
+        function displayResults(data) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = `
+                <div class="bg-dark-800 rounded-lg p-6 shadow-lg border border-dark-700">
+                    <h2 class="text-xl font-bold mb-4 text-primary">${data.command}</h2>
+                    <div class="space-y-4">
+                        ${data.examples.map(example => {
+                            const [description, command] = example.split('::');
+                            return `
+                                <div class="bg-dark-700 rounded p-4 border-l-4 border-primary">
+                                    <p class="text-gray-300 mb-2">${description}</p>
+                                    <code class="block bg-dark-900 p-2 rounded font-mono text-primary">${command}</code>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button onclick="explainCommand()" 
+                                class="px-4 py-2 bg-primary text-dark-900 rounded hover:bg-primary/90 transition-colors font-semibold">
+                            Explain
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displaySuggestions(suggestions) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = `
+                <div class="bg-dark-800 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">Did you mean?</h3>
+                    <div class="space-y-2">
+                        ${suggestions.map(suggestion => `
+                            <button onclick="searchSuggestion('${suggestion}')"
+                                    class="block w-full text-left px-4 py-2 rounded bg-dark-700 hover:bg-dark-900 transition-colors">
+                                ${suggestion}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function explainCommand() {
+            const command = document.getElementById('searchBox').value.trim();
+            const loadingDiv = document.getElementById('loading');
+            const resultsDiv = document.getElementById('results');
+
+            if (!command) return;
+
+            try {
+                loadingDiv.classList.remove('hidden');
+                
+                const response = await fetch('/explain', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ command })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    resultsDiv.innerHTML = `
+                        <div class="bg-red-500/10 border border-red-500 p-4 rounded-lg mt-4">
+                            <p class="text-red-500">${data.error}</p>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div class="bg-dark-800 rounded-lg p-6 mt-4 shadow-lg border border-dark-700">
+                            <h3 class="text-xl font-bold mb-4 text-primary">Explanation</h3>
+                            <div class="bg-dark-700 rounded p-4 whitespace-pre-wrap font-mono text-gray-300">
+                                ${data.explanation}
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="bg-red-500/10 border border-red-500 p-4 rounded-lg mt-4">
+                        <p class="text-red-500">Failed to get explanation: ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                loadingDiv.classList.add('hidden');
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('searchBox').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+        document.getElementById('explainBtn').addEventListener('click', performSearch);
+
+        async function updateLLMStatus() {
+            const response = await fetch('/llm-status');
+            const status = await response.json();
+            const indicator = document.getElementById('llmStatus');
+            indicator.textContent = `Using: ${status.is_openai ? 'OpenAI' : 'Local LLM'} (${status.model})`;
+        }
+
+        // Update LLM status on page load
+        document.addEventListener('DOMContentLoaded', updateLLMStatus);
+    </script>
+</body>
+</html>

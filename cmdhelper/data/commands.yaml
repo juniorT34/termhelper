@@ -1,0 +1,151 @@
+
+ls:
+  - "List files in the current directory:: `ls`"
+  - "List all files, including hidden ones:: `ls -a`"
+  - "List files with details:: `ls -l`"
+tar:
+  - "Create a tar archive:: `tar -cvf archive.tar file`"
+  - "Extract a tar archive:: `tar -xvf archive.tar`"
+  - "Compress with gzip:: `tar -czvf archive.tar.gz file`"
+  - "Extract with gzip:: `tar -xzvf archive.tar.gz`"
+rm:
+  - "Remove a file:: `rm file`"
+  - "Remove a directory:: `rm -r directory`"
+  - "Remove a file with confirmation:: `rm -i file`"
+rmdir:
+  - "Remove a directory:: `rmdir directory`"
+  - "Remove a directory with confirmation:: `rmdir -i directory`"
+  - "Remove a directory recursively:: `rmdir -r directory`"
+  - "Remove a directory recursively with confirmation:: `rmdir -ri directory`"
+mv:
+  - "Move a file:: `mv file newname`"
+  - "Move a directory:: `mv directory newname`"
+  - "Rename a file:: `mv file newname`"
+cp:
+  - "Copy a file:: `cp file newname`"
+  - "Copy a directory:: `cp directory newname`"
+  - "Copy a directory and its contents:: `cp -r directory newname`"
+mkdir:
+  - "Create a directory:: `mkdir directory`"
+  - "Create a directory with parent:: `mkdir -p directory`"
+  - "Create a directory with parent and permissions:: `mkdir -p -m 755 directory`"
+  - "Create a directory with parent and permissions and owner:: `mkdir -p -m 755 -o user directory`"
+cd:
+  - "Change directory:: `cd directory`"
+  - "Change directory to the parent directory:: `cd ..`"
+  - "Change directory to the root directory:: `cd /`"
+pwd:
+  - "Print working directory:: `pwd`"
+cat:
+  - "Print the contents of a file:: `cat file`"
+  - "Print the contents of a file with line numbers:: `cat -n file`"
+  - "Print the contents of a file with line numbers and show non-printable characters:: `cat -v file`"
+echo:
+  - "Print a message:: `echo message`"
+  - "Print a message with a new line:: `echo -e 'message\\n'`"
+  - "Save a message to a file:: `echo 'message' > file`"
+clear:
+  - "Clear the terminal screen:: `clear`"
+exit:
+  - "Exit the shell:: `exit`"
+macchanger:
+  - "Change the MAC address of a network interface:: `sudo macchanger -m 00:11:22:33:44:55 interface`"
+  - "Change the MAC address of a network interface with confirmation:: `sudo macchanger -m 00:11:22:33:44:55 interface && echo 'MAC address changed!'`"
+  - "Randomize the MAC address of a network interface:: `sudo macchanger -r interface`"
+  - "known MAC addresses:: `sudo macchanger -l`"
+  - "know vendor:: `sudo macchanger -v`"
+  - "change mac to known vendor:: `sudo macchanger -m vendor interface`"
+
+ifconfig:
+  - "Show network interfaces:: `ifconfig`"
+  - "Show network interfaces with details:: `ifconfig -a`"
+  - "Show network interfaces with details and statistics:: `ifconfig -a -s`"
+  - "Show network interfaces with statistics:: `ifconfig -s`"
+  - "Show only active network interfaces:: `ifconfig -u`"
+
+fdisk:
+  - "Show disk partitions:: `fdisk -l`"
+  - "Show disk partitions with details:: `fdisk -l -v`"
+  - "Show disk partitions with details and statistics:: `fdisk -l -v -S`"
+  - "Show disk partitions with statistics:: `fdisk -l -S`"
+  - "Show only active disk partitions:: `fdisk -l -u`"
+
+route:
+  - "Show routing table:: `route`"
+  - "Show routing table with details:: `route -v`"
+  - "Show routing table with details and statistics:: `route -v -n`"
+  - "Show routing table with statistics:: `route -n`"
+  - "Show only active routing table:: `route -u`"
+
+ip:
+  - "Show IP addresses:: `ip addr`"
+  - "Show IP addresses with details:: `ip addr show`"
+  - "Show IP addresses with details and statistics:: `ip addr show -s`"
+  - "Show IP addresses with statistics:: `ip addr show -s -d`"
+  - "Show only active IP addresses:: `ip addr show -u`"
+
+arp:
+  - "Show ARP table:: `arp -a`"
+  - "Show ARP table with details:: `arp -a -v`"
+  - "Show ARP table with details and statistics:: `arp -a -v -s`"
+  - "Show ARP table with statistics:: `arp -a -s`"
+  - "Show only active ARP table:: `arp -a -u`"
+
+netstat:
+  - "Show network connections:: `netstat -an`"
+  - "Show network connections with details:: `netstat -an`"
+  - "Show network connections with details and statistics:: `netstat -an -s`"
+  - "Show network connections with statistics:: `netstat -an -s`"
+  - "Show only active network connections:: `netstat -an -u`"
+
+ss:
+  - "Show sockets:: `ss -ln`"
+  - "Show sockets with details:: `ss -ln`"
+  - "Show sockets with details and statistics:: `ss -ln -s`"
+  - "Show sockets with statistics:: `ss -ln -s`"
+  - "Show only active sockets:: `ss -ln -u`"
+
+ps:
+  - "Show processes:: `ps -ef`"
+  - "Show processes with details:: `ps -ef`"
+  - "Show processes with details and statistics:: `ps -ef -s`"
+  - "Show processes with statistics:: `ps -ef -s`"
+  - "Show only active processes:: `ps -ef -u`"
+
+top:
+  - "Show processes sorted by CPU usage:: `top -o cpu`"
+  - "Show processes sorted by memory usage:: `top -o vsz`"
+  - "Show processes sorted by memory usage and CPU usage:: `top -o cpu -o vsz`"
+  - "Show processes sorted by CPU usage and memory usage:: `top -o vsz -o cpu`"
+  - "Show processes sorted by CPU usage and memory usage with details:: `top -o cpu -o vsz -o pid,comm,user,command`"
+
+kill:
+  - "Kill a process:: `kill PID`"
+  - "Kill a process with confirmation:: `kill -9 PID`"
+  - "Kill all processes:: `killall process`"
+  - "Kill all processes with confirmation:: `killall -9 process`"
+
+lsof:
+  - "Show open files:: `lsof`"
+  - "Show open files with details:: `lsof -p PID`"
+  - "Show open files with details and statistics:: `lsof -p PID -s`"
+  - "Show open files with statistics:: `lsof -p PID -s`"
+  - "Show only active open files:: `lsof -p PID -u`"
+
+lsmod:
+  - "Show loaded kernel modules:: `lsmod`"
+  - "Show loaded kernel modules with details:: `lsmod -p`"
+  - "Show loaded kernel modules with details and statistics:: `lsmod -p -s`"
+  - "Show loaded kernel modules with statistics:: `lsmod -p -s`"
+  - "Show only active loaded kernel modules:: `lsmod -p -u`"
+
+dmesg:
+  - "Show kernel messages:: `dmesg`"
+  - "Show kernel messages with details:: `dmesg -p`"
+  - "Show kernel messages with details and statistics:: `dmesg -p -s`"
+  - "Show kernel messages with statistics:: `dmesg -p -s`"
+  - "Show only active kernel messages:: `dmesg -p -u`"
+
+uname:
+  - "Show system information:: `uname -a`"
+  - "Show system information with details:: `uname -a -r -m -p -s -v -i`"

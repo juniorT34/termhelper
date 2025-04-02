@@ -1,0 +1,48 @@
+dir:
+  - "List files in the current directory:: `dir`"
+  - "List all files, including hidden ones:: `dir /a`"
+  - "List files with details:: `dir /q`"
+tar:
+  - "Create a tar archive:: `tar -cf archive.tar file`"
+  - "Extract a tar archive:: `tar -xf archive.tar`"
+  - "Compress with gzip:: `tar -czf archive.tar.gz file`"
+  - "Extract with gzip:: `tar -xzf archive.tar.gz`"
+del:
+  - "Remove a file:: `del file`"
+  - "Remove a directory and all contents:: `rmdir /s directory`"
+  - "Remove a file with confirmation:: `del /p file`"
+rmdir:
+  - "Remove a directory:: `rmdir directory`"
+  - "Remove a directory with confirmation:: `rmdir /s /q directory`"
+move:
+  - "Move a file:: `move file newname`"
+  - "Move a directory:: `move directory newname`"
+  - "Rename a file:: `rename file newname`"
+copy:
+  - "Copy a file:: `copy file newname`"
+  - "Copy a directory and its contents:: `xcopy directory newname /E /I`"
+mkdir:
+  - "Create a directory:: `mkdir directory`"
+  - "Create a directory with parent:: `mkdir directory`"
+cd:
+  - "Change directory:: `cd directory`"
+  - "Change directory to the parent directory:: `cd ..`"
+  - "Change directory to the root directory:: `cd \\`"
+cd:
+  - "Print working directory:: `cd`"
+type:
+  - "Print the contents of a file:: `type file`"
+  - "Print the contents of a file with paging:: `more file`"
+echo:
+  - "Print a message:: `echo message`"
+  - "Print a message with a new line:: `echo message & echo.`"
+  - "Save a message to a file:: `echo message > file`"
+cls:
+  - "Clear the terminal screen:: `cls`"
+exit:
+  - "Exit the shell:: `exit`"
+macchanger:
+  - "Change the MAC address manually (GUI):: `ncpa.cpl` (Then right-click adapter > Properties > Configure > Advanced > Network Address)"
+  - "Show MAC address of all interfaces:: `getmac`"
+  - "Show detailed MAC information:: `ipconfig /all`"
+  - "Reset MAC address (Requires reboot):: `netsh interface set interface name='Ethernet' admin=disable & netsh interface set interface name='Ethernet' admin=enable`"

